@@ -1,13 +1,17 @@
 require 'bike'
 
 describe Bike do
-  bike = Bike.new
 
-  it 'is working?' do
-    expect(bike).to respond_to(:working?)
+  # reset state before each test
+  before :each do
+    @bike = Bike.new
   end
 
-  it 'is the bike working?' do
-    expect(bike.working?).to eq(true)
+  it 'has a working? method' do
+    expect(@bike).to respond_to(:working?)
+  end
+
+  it 'is working' do
+    expect(@bike.working?).to eq(true)
   end
 end
