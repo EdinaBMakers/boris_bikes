@@ -41,8 +41,8 @@ describe DockingStation do
    # Given docking station is full (Setup)
    # When I try to dock a bikes (Act)
    # Then I get an error (Assert)
-   it 'raises error when docking station is at max capacity of 20' do
-     20.times {@docking_station.dock(Bike.new)}
+   it 'raises error when docking station is at max capacity' do
+     DockingStation::DEFAULT_CAPACITY.times {@docking_station.dock(Bike.new)}
 
      expect{@docking_station.dock(Bike.new)}.to raise_error('Docking station is full')
    end
