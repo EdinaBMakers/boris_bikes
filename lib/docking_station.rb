@@ -3,6 +3,7 @@ class DockingStation
 
   def initialize
     @bikes = []
+    @capacity = 20
   end
 
   def release
@@ -11,7 +12,7 @@ class DockingStation
   end
 
   def dock(bike)
-    raise RuntimeError, "Docking station is full" if @bikes.any?
+    raise RuntimeError, "Docking station is full" if @bikes.size == @capacity
     @bikes.push(bike)
   end
 end
