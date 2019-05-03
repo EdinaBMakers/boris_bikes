@@ -22,16 +22,33 @@ describe DockingStation do
      expect(@docking_station).to respond_to(:dock)
    end
 
-   it 'raises error when no bike available to release ' do
-     expect{@docking_station.release}.to raise_error('No bike in the docking station')
+   it 'raises error when trying to release a bike and docking station is empty' do
+     expect{@docking_station.release}.to raise_error('No bike available')
    end
 
-   it 'can dock a bike' do
+   it 'raises error when trying to release a bike and only broken ones available' do
+     bike = Bike.new
+     bike.report_broken
+     @docking_station.dock(bike)
+
+     expect{@docking_station.release}.to raise_error('No bike available')
+   end
+
+   it 'can dock a working bike' do
      bike = Bike.new
      @docking_station.dock(bike)
 
-     expect(@docking_station.bikes.length).to eq(1)
+     expect(@docking_station.bikes.size).to eq(1)
      expect(@docking_station.bikes[0]).to eq bike
+   end
+
+   it 'can dock a broken bike' do
+     bike = Bike.new
+     bike.report_broken
+     @docking_station.dock(bike)
+
+     expect(@docking_station.bikes.size).to eq(1)
+     expect(@docking_station.bikes[0]).to eq(bike)
    end
 
    it 'requires an argument when initialized' do

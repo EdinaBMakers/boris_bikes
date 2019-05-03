@@ -8,7 +8,7 @@ class DockingStation
   end
 
   def release
-    raise RuntimeError, "No bike in the docking station" if empty?
+    raise RuntimeError, "No bike available" if empty? || all_broken?
     @bikes.first
   end
 
@@ -25,5 +25,9 @@ class DockingStation
 
   def empty?
     @bikes.empty?
+  end
+
+  def all_broken?
+    @bikes.all?{ |bike| !bike.working?}
   end
 end
