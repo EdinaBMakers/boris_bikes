@@ -9,7 +9,7 @@ class DockingStation
 
   def release
     raise RuntimeError, "No bike available" if empty? || all_broken?
-    @bikes.first
+    @bikes.shift
   end
 
   def dock(bike)
